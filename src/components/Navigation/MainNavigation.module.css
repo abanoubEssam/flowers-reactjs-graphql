@@ -1,0 +1,18 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+/* .mainNavigationItems a[class='active'] {
+    color: red;
+} */
+
+a:hover, a:active, a[class='active'] {
+    text-decoration: none;
+    color: white;
+}
+
+/* 
+[class='active'] {
+    color: red !important;
+} */
