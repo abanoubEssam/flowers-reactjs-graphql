@@ -1,13 +1,16 @@
-import React, { useRef } from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import classes from './SignUpPage.module.css';
 import { useHistory } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../../Apollo/Mutations/Auth/SignUp.mutation';
 
 export interface SignUpPageProps {
 
 }
 
 const SignUpPage: React.SFC<SignUpPageProps> = () => {
+    const [signUp, { data }] = useMutation(CREATE_USER);
 
     const history = useHistory();
 
@@ -16,8 +19,22 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
     const refNameEl = useRef<HTMLInputElement>(null)
     const refProfileImgEl = useRef<HTMLInputElement>(null)
 
-    const onSubmitHandler = () => {
 
+
+    const onSubmitHandler = async (event: FormEvent) => {
+        console.log("ssssssssssss" ,  {
+            email: refEmailEl.current?.value,
+            name: refNameEl.current?.value,
+            password: refPasswordEl.current?.value
+        })
+        event.preventDefault()
+        await signUp({
+            variables: {
+                    email: refEmailEl.current?.value,
+                    name: refNameEl.current?.value,
+                    password: refPasswordEl.current?.value
+            }
+        });
     }
 
     return (
@@ -38,7 +55,7 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
                     </FormGroup>
                     <FormGroup>
                         <Label for="profileImg">ProfileImage</Label>
-                        <Input type="file" name="profileImg" id="profileImg"  innerRef={refProfileImgEl} />
+                        <Input type="file" name="profileImg" id="profileImg" innerRef={refProfileImgEl} />
                     </FormGroup>
                     <FormGroup className='form-row'>
                         <div className='form-group col-12'>
