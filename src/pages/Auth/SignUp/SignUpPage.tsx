@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef } from 'react';
+import React, { FormEvent, useEffect, useRef } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import classes from './SignUpPage.module.css';
 import { useHistory } from 'react-router-dom';
@@ -10,8 +10,8 @@ export interface SignUpPageProps {
 }
 
 const SignUpPage: React.SFC<SignUpPageProps> = () => {
-    const [signUp, { data }] = useMutation(CREATE_USER);
-
+    const [SignUp, { data, error, loading }] = useMutation(CREATE_USER);
+    
     const history = useHistory();
 
     const refEmailEl = useRef<HTMLInputElement>(null)
@@ -21,26 +21,24 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
 
 
 
-    const onSubmitHandler = async (event: FormEvent) => {
-        console.log("ssssssssssss" ,  {
-            email: refEmailEl.current?.value,
-            name: refNameEl.current?.value,
-            password: refPasswordEl.current?.value
-        })
+    const onSubmitSignUpHandler = async (event: FormEvent) => {
         event.preventDefault()
-        await signUp({
+        await SignUp({
             variables: {
+                input: {
                     email: refEmailEl.current?.value,
                     name: refNameEl.current?.value,
                     password: refPasswordEl.current?.value
+                }
             }
         });
+        console.log("DATA" , data)
     }
 
     return (
         <div className="container">
             <div className="container-fluid">
-                <Form className={classes.authForm} onSubmit={onSubmitHandler}>
+                <Form className={classes.authForm} onSubmit={onSubmitSignUpHandler}>
                     <FormGroup>
                         <Label for="name">Name</Label>
                         <Input type="text" name="name" id="name" placeholder="Name" innerRef={refNameEl} autoComplete="off" />

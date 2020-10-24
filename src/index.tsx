@@ -4,11 +4,13 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_SERVER_URL,
-  cache: new InMemoryCache()
+  // uri: process.env.REACT_APP_SERVER_URL,s
+  cache: new InMemoryCache(),
+  link: new HttpLink({ uri: process.env.REACT_APP_SERVER_URL })
+
 });
 
 console.log("process.env.SERVER_URL", process.env.REACT_APP_SERVER_URL)
