@@ -25,6 +25,34 @@ const MainNavigation: React.SFC<MainNavigationProps> = (props: MainNavigationPro
         history.push('/auth/login/')
         window.location.reload()
     }
+    const logedInRender = () => {
+        return (
+            <>
+                <Nav className="mr-auto" navbar>
+                    <NavItem className={classes.mainNavigationItems}>
+                        <NavLink to="/users/">Users</NavLink>
+                    </NavItem>
+                </Nav>
+                <Button onClick={handleLogout}>
+                    Logout
+                </Button>
+            </>
+        )
+    }
+    const notLogedInRender = () => {
+        return (
+            <>
+                <Nav className="mr-auto" navbar>
+                    <NavItem className={classes.mainNavigationItems}>
+                        <NavLink to="/any/">AnyData</NavLink>
+                    </NavItem>
+                </Nav>
+                <Button onClick={() => history.push('/auth/login/')}>
+                    Login
+                </Button>
+            </>
+        )
+    }
     return (
         <div>
             <Navbar color="dark" dark expand="md">
@@ -35,19 +63,11 @@ const MainNavigation: React.SFC<MainNavigationProps> = (props: MainNavigationPro
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
-                        <NavItem className={classes.mainNavigationItems}>
-                            <NavLink to="/components/">Components</NavLink>
-                        </NavItem>
-                    </Nav>
+
                     {!props.token ?
-                        <Button onClick={() => history.push('/auth/login/')}>
-                            Login
-                    </Button>
+                        notLogedInRender()
                         :
-                        <Button onClick={handleLogout}>
-                            Logout
-                        </Button>
+                        logedInRender()
                     }
 
                 </Collapse>

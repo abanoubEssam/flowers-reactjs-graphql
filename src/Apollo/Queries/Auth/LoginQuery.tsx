@@ -15,12 +15,3 @@ query Login($input:loginInput) {
 `;
 
 
-export const GET_USERS = gql`
-query GetUsers{
-    getUsers{
-        email
-        createdAt
-        profileImg
-    }
-}
-`;
