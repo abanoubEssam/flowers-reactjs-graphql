@@ -10,8 +10,8 @@ export interface SignUpPageProps {
 }
 
 const SignUpPage: React.SFC<SignUpPageProps> = () => {
-    const [SignUp, { data, error, loading }] = useMutation(CREATE_USER);
-    
+    const [SignUp] = useMutation(CREATE_USER);
+
     const history = useHistory();
 
     const refEmailEl = useRef<HTMLInputElement>(null)
@@ -23,7 +23,7 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
 
     const onSubmitSignUpHandler = async (event: FormEvent) => {
         event.preventDefault()
-        await SignUp({
+        const { data: signUp, errors , context} = await SignUp({
             variables: {
                 input: {
                     email: refEmailEl.current?.value,
@@ -32,7 +32,11 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
                 }
             }
         });
-        console.log("DATA" , data)
+        console.log("errors", errors)
+        console.log("onSubmitSignUpHandler -> signUpData", signUp)
+        console.log("onSubmitSignUpHandler -> context", context)
+
+
     }
 
     return (

@@ -4,8 +4,9 @@ export const CREATE_USER = gql`
 mutation SignUp($input:signUpInput) {
     signUp(input: $input) {
         user{
-            name
             email
+            name
+            id
         }
         token
   }

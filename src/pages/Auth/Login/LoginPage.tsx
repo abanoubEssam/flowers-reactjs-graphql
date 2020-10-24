@@ -1,9 +1,9 @@
 // import { useLazyQuery } from '@apollo/react-hooks';
-import { useLazyQuery } from '@apollo/client';
+// import { useLazyQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import React, { FormEvent, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-// import { useLazyQuery } from '@apollo/react-hooks';
 import { LOGIN_QUERY } from '../../../Apollo/Queries/Auth/LoginQuery';
 import classes from './LoginPage.module.css';
 
@@ -14,18 +14,16 @@ export interface LoginPageProps {
 const LoginPage: React.SFC<LoginPageProps> = () => {
 
     const history = useHistory();
-
     const refEmailEl = useRef<HTMLInputElement>(null)
     const refPasswordEl = useRef<HTMLInputElement>(null)
+    const client = useApolloClient();
 
-    const [Login, { loading: loginLoading, client, data: userLogin }] = useLazyQuery(LOGIN_QUERY);
-    
-    const onSubmitHandler = async (event: FormEvent) => {
-        await Login({ variables: { input: { email: refEmailEl.current?.value, password: refPasswordEl.current?.value } } })
-        console.log("loginLoading", loginLoading)
-        const login = userLogin
-        console.log("onSubmitHandler -> login", login)
+
+    const onSubmitHandler = async (event: FormEvent): Promise<any> => {
         event.preventDefault()
+        const { data, loading } = await client.query({ query: LOGIN_QUERY, variables: { input: { email: refEmailEl.current?.value, password: refPasswordEl.current?.value } } })
+        
+        console.log("login data", data)
     }
 
     return (
