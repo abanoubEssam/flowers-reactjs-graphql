@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { LOGIN_QUERY } from '../../../Apollo/Queries/Auth/LoginQuery';
 import classes from './LoginPage.module.css';
+import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../constants';
 
 export interface LoginPageProps {
 
@@ -22,8 +23,10 @@ const LoginPage: React.SFC<LoginPageProps> = () => {
     const onSubmitHandler = async (event: FormEvent): Promise<any> => {
         event.preventDefault()
         const { data, loading } = await client.query({ query: LOGIN_QUERY, variables: { input: { email: refEmailEl.current?.value, password: refPasswordEl.current?.value } } })
-        
+        console.log("data.login.login.token", data.login.token)
+        localStorage.setItem(AUTH_TOKEN_LOCAL_STORAGE, data.login.token)
         console.log("login data", data)
+        window.location.reload()
     }
 
     return (

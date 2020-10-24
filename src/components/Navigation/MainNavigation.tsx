@@ -7,18 +7,24 @@ import {
     NavItem
 } from 'reactstrap';
 import classes from './MainNavigation.module.css'
+import { AUTH_TOKEN_LOCAL_STORAGE } from '../../constants';
 
 
 export interface MainNavigationProps {
-
+    token: string | null
 }
 
-const MainNavigation: React.SFC<MainNavigationProps> = () => {
+const MainNavigation: React.SFC<MainNavigationProps> = (props: MainNavigationProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const history = useHistory();
-
+    console.log(props)
     const toggle = () => setIsOpen(!isOpen);
-
+    const handleLogout = () => {
+        //cleare token
+        localStorage.removeItem(AUTH_TOKEN_LOCAL_STORAGE)
+        history.push('/auth/login/')
+        window.location.reload()
+    }
     return (
         <div>
             <Navbar color="dark" dark expand="md">
@@ -34,10 +40,16 @@ const MainNavigation: React.SFC<MainNavigationProps> = () => {
                             <NavLink to="/components/">Components</NavLink>
                         </NavItem>
                     </Nav>
-
-                    <Button onClick={()=> history.push('/auth/login/')}>
+                    {!props.token ?
+                        <Button onClick={() => history.push('/auth/login/')}>
                             Login
                     </Button>
+                        :
+                        <Button onClick={handleLogout}>
+                            Logout
+                        </Button>
+                    }
+
                 </Collapse>
             </Navbar>
         </div>
