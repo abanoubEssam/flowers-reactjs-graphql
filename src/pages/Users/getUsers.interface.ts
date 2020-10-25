@@ -16,3 +16,15 @@ export interface ReturnedUser {
     profileImg: string | undefined
     __typename: string
 }
+
+export interface LoginResponse {
+    login:{
+        user: {
+            name: string,
+            email: string,
+            createdAt: string
+            profileImg: string
+        },
+        token: string
+    }
+}

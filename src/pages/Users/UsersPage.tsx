@@ -31,7 +31,7 @@ const UsersPage: React.FC<UsersPageProps> = () => {
                                     <th scope='row'>{index + 1}</th>
                                     <td>{user.email}</td>
                                     <td>{user.name}</td>
-                                    <td><img src={user.profileImg} alt="img"/></td>
+                                    <td><img src={user.profileImg} alt="img" style={{width: '70px' , height: '40px'}} /></td>
                                 </tr>
                             )
                         })
