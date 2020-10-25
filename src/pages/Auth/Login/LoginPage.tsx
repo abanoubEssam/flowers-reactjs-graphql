@@ -1,18 +1,15 @@
 // import { useLazyQuery } from '@apollo/react-hooks';
 import { useLazyQuery } from '@apollo/client';
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { FormEvent, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { LOGIN_QUERY } from '../../../Apollo/Queries/Auth/LoginQuery';
 import { ToastComponent } from '../../../components/Toast/Toast';
-import classes from './LoginPage.module.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
-import { Spinner } from 'reactstrap';
 import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../constants';
-import { ReturnedUser } from '../../Users/getUsers.interface';
 import { LoginResponse } from '../../Users/getUsers.interface';
+import classes from './LoginPage.module.css';
 
 export interface LoginPageProps {
 

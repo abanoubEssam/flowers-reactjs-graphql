@@ -1,9 +1,9 @@
-import React, { FormEvent, useEffect, useRef } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import classes from './SignUpPage.module.css';
-import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import React, { FormEvent, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { CREATE_USER } from '../../../Apollo/Mutations/Auth/SignUp.mutation';
+import classes from './SignUpPage.module.css';
 
 export interface SignUpPageProps {
 
