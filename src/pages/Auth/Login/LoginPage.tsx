@@ -13,7 +13,7 @@ import classes from './LoginPage.module.css';
 
 import { useForm } from "react-hook-form";
 
-type Inputs = {
+type IFormInputs = {
     email: string,
     password: string,
 };
@@ -23,7 +23,7 @@ export interface LoginPageProps {
 }
 
 const LoginPage: React.FC<LoginPageProps> = () => {
-    const { register, handleSubmit, watch, errors } = useForm<Inputs>();
+    const { register, handleSubmit, watch, errors } = useForm<IFormInputs>();
 
     const history = useHistory();
 
@@ -40,7 +40,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
         }
     });
 
-    const onSubmit = async (result: Inputs) => {
+    const onSubmit = async (result: IFormInputs) => {
         const email = result.email;
         const password = result.password;
         login({ variables: { input: { email, password } } });        
