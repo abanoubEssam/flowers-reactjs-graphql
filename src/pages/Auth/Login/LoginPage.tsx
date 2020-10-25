@@ -11,17 +11,22 @@ import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../constants';
 import { LoginResponse } from '../../Users/getUsers.interface';
 import classes from './LoginPage.module.css';
 
+import { useForm } from "react-hook-form";
+
+type Inputs = {
+    email: string,
+    password: string,
+};
+
 export interface LoginPageProps {
 
 }
 
-const LoginPage: React.SFC<LoginPageProps> = () => {
+const LoginPage: React.FC<LoginPageProps> = () => {
+    const { register, handleSubmit, watch, errors } = useForm<Inputs>();
 
     const history = useHistory();
-    const refEmailEl = useRef<HTMLInputElement>(null)
-    const refPasswordEl = useRef<HTMLInputElement>(null)
-    // const [loginData, setLoginData] = useState<LoginResponse>()
-    // const [loginError, setLoginError] = useState('')
+
     const [login, { loading, error }] = useLazyQuery(LOGIN_QUERY, {
         onCompleted: (data: LoginResponse) => {
             console.log("data", data)
@@ -35,25 +40,31 @@ const LoginPage: React.SFC<LoginPageProps> = () => {
         }
     });
 
-    const onSubmitHandler = async (event: FormEvent) => {
-        event.preventDefault();
-        const email = refEmailEl.current?.value;
-        const password = refPasswordEl.current?.value;
-        login({ variables: { input: { email, password } } });
-    }
+    const onSubmit = async (result: Inputs) => {
+        const email = result.email;
+        const password = result.password;
+        login({ variables: { input: { email, password } } });        
+    };
+
 
     return (
         <div className="container">
             <div className="container-fluid">
                 <ToastComponent />
-                <Form className={classes.authForm} onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
+                <Form className={classes.authForm} onSubmit={handleSubmit(onSubmit)}>
                     <FormGroup>
+
                         <Label for="exampleEmail">Email</Label>
-                        <Input type="email" name="email" id="exampleEmail" placeholder="Email" innerRef={refEmailEl} />
+                        <Input type="email" name="email" id="exampleEmail" placeholder="Email" innerRef={register({ required: true })} />
+                        {(errors as any).email && <span>This field is required</span>}
+
                     </FormGroup>
                     <FormGroup>
+
                         <Label for="examplePassword">Password</Label>
-                        <Input type="password" name="password" id="examplePassword" placeholder="Password" innerRef={refPasswordEl} />
+                        <Input type="password" name="password" id="examplePassword" placeholder="Password" innerRef={register({ required: true })} />
+                        {(errors as any).password && <span>This field is required</span>}
+
                     </FormGroup>
                     <FormGroup className='form-row'>
                         <div className='form-group col-12'>
