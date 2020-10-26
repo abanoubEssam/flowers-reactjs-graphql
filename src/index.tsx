@@ -1,23 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './scss/main.scss';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink } from '@apollo/client';
+import store from './store/store';
 
 const client = new ApolloClient({
-  // uri: process.env.REACT_APP_SERVER_URL,s
   cache: new InMemoryCache(),
   link: new HttpLink({ uri: process.env.REACT_APP_SERVER_URL })
-
 });
 
-console.log("process.env.SERVER_URL", process.env.REACT_APP_SERVER_URL)
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+		<Provider store={store}>
+      		<App />
+		</Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

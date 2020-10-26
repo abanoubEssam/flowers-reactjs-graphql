@@ -3,7 +3,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import MainNavigation from './components/Navigation/MainNavigation';
 import LoginPage from './pages/Auth/Login/LoginPage';
 import SignUpPage from './pages/Auth/SignUp/SignUpPage';
-import { AUTH_TOKEN_LOCAL_STORAGE } from './constants';
+import { AUTH_TOKEN_LOCAL_STORAGE } from './utils/constants';
 import UsersPage from './pages/Users/UsersPage';
 
 const App = () => {
