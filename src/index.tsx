@@ -8,13 +8,13 @@ import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, ApolloLink } fro
 import { createUploadLink } from 'apollo-upload-client';
 
 const link = ApolloLink.from([
-  new HttpLink({ uri: process.env.REACT_APP_SERVER_URL }),
-  createUploadLink({uri: process.env.REACT_APP_SERVER_URL})
+  createUploadLink({uri: process.env.REACT_APP_SERVER_URL}),
+  new HttpLink({ uri: process.env.REACT_APP_SERVER_URL })
 ])
 const client = new ApolloClient({
   // uri: process.env.REACT_APP_SERVER_URL,s
+  link,
   cache: new InMemoryCache(),
-  link
 
 });
 

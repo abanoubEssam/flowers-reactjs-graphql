@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import React, { FormEvent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
@@ -35,17 +35,10 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
         await SignUp({ variables:  { email, password, name , profileImg } });
     };
 
-    const handleFileChange = ({
-        target: {
-            validity,
-            files: [file],
-            value
-        }
-    }: any) => {
+    const handleFileChange = (event: any) => {
+        const file = event.target.files[0]
         console.log("handleFileChange -> file", file)
-        console.log("value", value)
-        console.log("handleFileChange -> validity", validity)
-        if (file && validity.valid) {
+        if (file) {
             setFileValue(file)
         }
     }
@@ -74,8 +67,9 @@ const SignUpPage: React.FC<SignUpPageProps> = () => {
                     </FormGroup>
                     <FormGroup>
                         <Label for="profileImg">ProfileImage</Label>
-                        <Input type="file" name="profileImg" id="profileImg" innerRef={register} onChange={handleFileChange} />
+                        <input type="file" name="profileImg" id="profileImg" ref={register} onChange={handleFileChange} />
                     </FormGroup>
+                    
                     <FormGroup className='form-row'>
                         <div className='form-group col-12'>
                             <Button color='primary' type='submit'>Submit</Button>
