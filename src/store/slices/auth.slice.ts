@@ -35,7 +35,7 @@ const AuthSlice = createSlice({
 
 export default AuthSlice.reducer;
 
-const { loginStart, loginSuccess } = AuthSlice.actions;
+export const { loginStart, loginSuccess } = AuthSlice.actions;
 
 export const login = (email: string, password: string): AppThunk => async dispatch => {
 	dispatch(loginStart());
