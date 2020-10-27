@@ -14,7 +14,7 @@ export interface MainNavigationProps {
     token: string | null
 }
 
-const MainNavigation: React.SFC<MainNavigationProps> = (props: MainNavigationProps) => {
+const MainNavigation: React.FC<MainNavigationProps> = (props: MainNavigationProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const history = useHistory();
     console.log(props)

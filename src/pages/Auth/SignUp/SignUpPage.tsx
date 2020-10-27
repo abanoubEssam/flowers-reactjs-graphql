@@ -20,7 +20,7 @@ type IFormInputs = {
 const SignUpPage: React.FC<SignUpPageProps> = () => {
     const [fileValue, setFileValue] = useState<any>()
     const [SignUp] = useMutation(CREATE_USER);
-    const { register, handleSubmit, watch, errors } = useForm<IFormInputs>();
+    const { register, handleSubmit, errors } = useForm<IFormInputs>();
     const history = useHistory();
     const refProfileImg = useRef()
 
