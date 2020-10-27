@@ -7,7 +7,7 @@ import {
     NavItem
 } from 'reactstrap';
 import classes from './MainNavigation.module.css'
-import { AUTH_TOKEN_LOCAL_STORAGE } from '../../constants';
+import { AUTH_TOKEN_LOCAL_STORAGE } from '../../utils/constants';
 
 
 export interface MainNavigationProps {

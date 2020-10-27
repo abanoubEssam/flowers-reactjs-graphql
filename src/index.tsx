@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import './scss/main.scss';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloClient, ApolloProvider, InMemoryCache, HttpLink, ApolloLink } from '@apollo/client';
 import { createUploadLink } from 'apollo-upload-client';
+import { Provider } from 'react-redux';
+import store from './store/store';
 
 const link = ApolloLink.from([
   createUploadLink({uri: process.env.REACT_APP_SERVER_URL}),
@@ -15,14 +18,14 @@ const client = new ApolloClient({
   // uri: process.env.REACT_APP_SERVER_URL,s
   link,
   cache: new InMemoryCache(),
-
 });
 
-console.log("process.env.SERVER_URL", process.env.REACT_APP_SERVER_URL)
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+		<Provider store={store}>
+      		<App />
+		</Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')

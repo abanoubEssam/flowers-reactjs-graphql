@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Form, FormGroup, Input, Label, Spinner } from 'reactstrap';
 import { LOGIN_QUERY } from '../../../Apollo/Queries/Auth/LoginQuery';
 import { ToastComponent } from '../../../components/Toast/Toast';
-import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../constants';
+import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../utils/constants';
 import { LoginResponse } from '../../Users/getUsers.interface';
 import classes from './LoginPage.module.css';
 
