@@ -32,7 +32,6 @@ const LoginPage: React.FC<LoginPageProps> = () => {
             console.log("data", data)
             localStorage.setItem(AUTH_TOKEN_LOCAL_STORAGE, data.login.token)
             history.push('/')
-            window.location.reload()
         },
         onError: (error) => {
             console.log("error", error)
