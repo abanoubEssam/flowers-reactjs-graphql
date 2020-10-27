@@ -1,10 +1,10 @@
 import { useMutation } from '@apollo/client';
-import React, { FormEvent, useRef } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
+import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { CREATE_USER } from '../../../Apollo/Mutations/Auth/SignUp.mutation';
 import classes from './SignUpPage.module.css';
-import { useForm } from "react-hook-form";
 
 export interface SignUpPageProps {
 
@@ -17,37 +17,38 @@ type IFormInputs = {
     profileImg: string,
 };
 
-const SignUpPage: React.SFC<SignUpPageProps> = () => {
+const SignUpPage: React.FC<SignUpPageProps> = () => {
+    const [fileValue, setFileValue] = useState<any>()
     const [SignUp] = useMutation(CREATE_USER);
     const { register, handleSubmit, watch, errors } = useForm<IFormInputs>();
-
     const history = useHistory();
+    const refProfileImg = useRef()
 
-
-    // const onSubmitSignUpHandler = async (event: FormEvent) => {
-    //     event.preventDefault()
-    //     const { data: signUp, errors , context} = await SignUp({
-    //         variables: {
-    //             input: {
-    //                 email: refEmailEl.current?.value,
-    //                 name: refNameEl.current?.value,
-    //                 password: refPasswordEl.current?.value
-    //             }
-    //         }
-    //     });
-    //     console.log("errors", errors)
-    //     console.log("onSubmitSignUpHandler -> signUpData", signUp)
-    //     console.log("onSubmitSignUpHandler -> context", context)
-    // }
     const onSubmitSignUpForm = async (result: IFormInputs) => {
         console.log("onSubmitSignUpForm -> result", result)
         const email = result.email;
         const password = result.password;
         const name = result.name;
-        const profileImg = result.profileImg;
-
-        await SignUp({ variables: { input: { email, password, name, profileImg } } });
+        const profileImg = fileValue;
+        console.log("onSubmitSignUpForm -> profileImg", profileImg)
+        console.log(fileValue)
+        await SignUp({ variables:  { email, password, name , profileImg } });
     };
+
+    const handleFileChange = ({
+        target: {
+            validity,
+            files: [file],
+            value
+        }
+    }: any) => {
+        console.log("handleFileChange -> file", file)
+        console.log("value", value)
+        console.log("handleFileChange -> validity", validity)
+        if (file && validity.valid) {
+            setFileValue(file)
+        }
+    }
 
     return (
         <div className="container">
@@ -73,7 +74,7 @@ const SignUpPage: React.SFC<SignUpPageProps> = () => {
                     </FormGroup>
                     <FormGroup>
                         <Label for="profileImg">ProfileImage</Label>
-                        <Input type="file" name="profileImg" id="profileImg" innerRef={register} />
+                        <Input type="file" name="profileImg" id="profileImg" innerRef={register} onChange={handleFileChange} />
                     </FormGroup>
                     <FormGroup className='form-row'>
                         <div className='form-group col-12'>

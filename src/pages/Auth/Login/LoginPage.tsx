@@ -1,6 +1,7 @@
 // import { useLazyQuery } from '@apollo/react-hooks';
 import { useLazyQuery } from '@apollo/client';
-import React, { FormEvent, useRef } from 'react';
+import React from 'react';
+import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +12,6 @@ import { AUTH_TOKEN_LOCAL_STORAGE } from '../../../constants';
 import { LoginResponse } from '../../Users/getUsers.interface';
 import classes from './LoginPage.module.css';
 
-import { useForm } from "react-hook-form";
 
 type IFormInputs = {
     email: string,
