@@ -7,6 +7,8 @@ import { AUTH_TOKEN_LOCAL_STORAGE } from './utils/constants';
 import UsersPage from './pages/Users/UsersPage';
 import { RootState } from './store/root-reducer';
 import { useSelector, useDispatch } from 'react-redux';
+import AuthorPage from './pages/Author/AuthorPage';
+import FlowersPage from './pages/FlowersPage/FlowersPage';
 
 const App = () => {
   const token = localStorage.getItem(AUTH_TOKEN_LOCAL_STORAGE);
@@ -24,6 +26,8 @@ const App = () => {
             <Route path='/auth/login/' component={LoginPage} />
             <Route path='/auth/sign-up/' component={SignUpPage} />
             <Route path='/users/' component={UsersPage} />
+            <Route path='/author/' component={AuthorPage} />
+            <Route path='/flowers/' component={FlowersPage} />
           </Switch>
         </main>
       </React.Fragment>
