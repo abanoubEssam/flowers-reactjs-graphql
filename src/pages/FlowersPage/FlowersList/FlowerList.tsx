@@ -26,14 +26,17 @@ const FlowerList: React.FC<FlowerListProps> = (props) => {
     console.log("inputFileValue", inputFileValue)
 
     useEffect(() => {
-        console.log("inputFileValue use eff" , inputFileValue)
+        console.log("inputFileValue use eff", inputFileValue)
         const flower = props.flowers[3]
-        // flower.splice(flower.indexOf(item), 1);
-        console.log("flower", flower)
-        // if (inputFileValue) {
-        //     flower['imgs']
-        //     UpdateFlower({variables: {id: flower.id , }})
-        // }
+        const newArr = [flower.imgs[1]]
+        async function updateFlowerAsync(imgs: string[]) {
+            await UpdateFlower({ variables: { id: flower.id, name: flower.name, price: flower.price, imgs } })
+        }
+        if (inputFileValue) {
+            newArr.push(inputFileValue[0])
+            updateFlowerAsync(newArr)
+        }
+        console.log("newArr", newArr)
 
     }, [inputFileValue]);
 
